@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 var mongoose = require("mongoose");
+var cors = require("cors");
 var userRouter = require('./routes/user');
 const db = require('./models/index');
 dotenv.config();
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 5000; //Declare the port number
 app.use(express.json()); //allows us to access request body as req.body
 app.use(morgan("dev"));  //enable incoming request logging in dev mode
 
- 
+ app.use(cors({ exposedHeaders: ['Total-Count', 'Report-Total']}));
 //Define the endpoint
 app.get("/ping", (req, res) => {  
   return res.send({
